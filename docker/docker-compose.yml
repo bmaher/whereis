@@ -1,5 +1,5 @@
 whereis:
- image: brianmaher/whereis
+ image: brianmaher/nginx
  command: nginx
  ports:
   - "80:80"
