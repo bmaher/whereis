@@ -5,16 +5,21 @@ var json = {
       "building": 1,
       "floor": 6,
       "elevator": "east",
-      "direction": "right",
+      "direction": "right"
     }, {
       "name": "atlas",
       "building": 1,
       "floor": 6,
       "elevator": "west",
-      "direction": "left",
+      "direction": "left"
     }]
   }
 };
+
+function buildString(v) {
+  return `${titleCase(v.name)} is on the ${getOrdinal(v.floor)} floor in HERE building `
+    + `${v.building}. From the ${v.elevator} elevator go ${v.direction}.`;
+}
 
 function titleCase(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -26,16 +31,10 @@ function getOrdinal(n) {
 }
 
 $(document).ready(function() {
-
   $('form').submit(function(event) {
-
     $.each(json.rooms.room, function(i, v) {
-
       if (v.name.toLowerCase() == $('input').val().toLowerCase()) {
-
-        var s = titleCase(v.name) + ' is on the ' + getOrdinal(v.floor) + ' floor in HERE building '
-            + v.building + '. From the ' + v.elevator + ' elevator go ' + v.direction + '.';
-        $('span').text(s).show();
+        $('span').text(buildString(v)).show();
         return;
       } 
     });
