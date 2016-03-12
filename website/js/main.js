@@ -56,24 +56,24 @@ $('form').submit(function(event) {
   var found = false;
   $.each(json.rooms.room, function(i, v) {
     if (v.name.toLowerCase() == $('input').val().toLowerCase()) {
-      $('span').text(getDirections(v)).show();
+      $('.info').text(getInfo(v)).show();
+      $('.directions').text(getDirections(v)).show();
       found = true;
       return;
     }
   });
   if (found === false) {
-    $('span').text('Room not found').show();
+    $('.info').text('Room not found').show();
   }
   event.preventDefault();
 });
 
-function getDirections(v) {
+function getInfo(v) {
   return `${toTitleCase(v.name)} is on the ${getOrdinal(v.floor)} floor in HERE building `
-    + `${v.building}, ${getCardinal(v.cardinal)}. ${getElevator(v.elevator, v.direction)}.`;
+    + `${v.building}, ${getCardinal(v.cardinal)}.`;
 }
 
-function toTitleCase(s)
-{
+function toTitleCase(s) {
   return s.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 }
 
@@ -94,10 +94,10 @@ function wordCount(s) {
   return s.split(' ').length;
 }
 
-function getElevator(e, d) {
-  if (e == 'either') {
-    return `Take ${e} elevator, the room is ${d} them`
+function getDirections(v) {
+  if (v.elevator == 'either') {
+    return `Take ${v.elevator} elevator, the room is ${v.direction} them.`
   } else {
-    return `From the ${e} elevator, go ${d}`
+    return `From the ${v.elevator} elevator, go ${v.direction}.`
   }
 }
