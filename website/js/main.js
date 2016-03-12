@@ -61,13 +61,15 @@ function getOrdinal(n) {
 }
 
 $(document).ready(function() {
-  $('form').submit(function(event) {
-    $.each(json.rooms.room, function(i, v) {
-      if (v.name.toLowerCase() == $('input').val().toLowerCase()) {
-        $('span').text(buildString(v)).show();
-        return;
-      } 
-    });
-    event.preventDefault();
+});
+
+$('form').submit(function(event) {
+  $.each(json.rooms.room, function(i, v) {
+    if (v.name.toLowerCase() == $('input').val().toLowerCase()) {
+      $('span').text(buildString(v)).show();
+      return;
+    }
   });
+  event.preventDefault();
+  // $('span').text('Room not found').show();
 });

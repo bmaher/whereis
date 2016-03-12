@@ -1,0 +1,7 @@
+whereis:
+ image: brianmaher/whereis
+ command: nginx
+ ports:
+  - "80:80"
+ volumes:
+  - ../website:/var/www/html/website
