@@ -34,6 +34,11 @@ var json = {
   }
 };
 
+$( document ).ready(function() {
+  var names = json.rooms.room.map( function(item) { return toTitleCase(item.name); } );
+  $('input').autocomplete({ source: names });
+});
+
 $('form').submit(function(event) {
   var found = false;
   $.each(json.rooms.room, function(i, v) {
