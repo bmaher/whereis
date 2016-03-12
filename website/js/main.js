@@ -60,16 +60,17 @@ function getOrdinal(n) {
   return n + (s[(v - 20) % 10] || s[v] || s[0]);
 }
 
-$(document).ready(function() {
-});
-
 $('form').submit(function(event) {
+  var found = false;
   $.each(json.rooms.room, function(i, v) {
     if (v.name.toLowerCase() == $('input').val().toLowerCase()) {
       $('span').text(buildString(v)).show();
+      found = true;
       return;
     }
   });
+  if (found === false) {
+    $('span').text('Room not found').show();
+  }
   event.preventDefault();
-  // $('span').text('Room not found').show();
 });
