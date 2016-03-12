@@ -2,15 +2,23 @@ var json = {
   "rooms": {
     "room": [{
       "name": "belvedere",
-      "floor": 4,
-      "ordinal": "east"
+      "building": 1,
+      "floor": 6,
+      "elevator": "east",
+      "direction": "right",
     }, {
       "name": "atlas",
+      "building": 1,
       "floor": 6,
-      "ordinal": "north west"
+      "elevator": "west",
+      "direction": "left",
     }]
   }
 };
+
+function titleCase(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 function getOrdinal(n) {
   var s = ['th', 'st', 'nd', 'rd'], v = n % 100;
@@ -25,7 +33,8 @@ $(document).ready(function() {
 
       if (v.name.toLowerCase() == $('input').val().toLowerCase()) {
 
-        var s = v.name + ' is on the ' + getOrdinal(v.floor) + ' floor, ' + v.ordinal + ' side.';
+        var s = titleCase(v.name) + ' is on the ' + getOrdinal(v.floor) + ' floor in HERE building '
+            + v.building + '. From the ' + v.elevator + ' elevator go ' + v.direction + '.';
         $('span').text(s).show();
         return;
       } 
