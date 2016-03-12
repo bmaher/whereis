@@ -1,53 +1,35 @@
 var json = {
   "rooms": {
     "room": [{
-      "number": "1.41C-023",
-      "name": "marlene dietrich",
-      "building": 1,
-      "floor": 4,
-      "cardinal": "north",
-      "elevator": "either",
-      "direction": "between",
+      "id": "1.41C-023",
+      "name": "marlene dietrich"
     }, {
-      "number": "1.41C-025",
-      "name": "harald juhnke",
-      "building": 1,
-      "floor": 4,
-      "cardinal": "north",
-      "elevator": "either",
-      "direction": "between"
+      "id": "1.41C-025",
+      "name": "harald juhnke"
     }, {
-      "number": "1.41C-078",
-      "name": "billy wilder",
-      "building": 1,
-      "floor": 4,
-      "cardinal": "north east",
-      "elevator": "east",
-      "direction": "left"
+      "id": "1.41C-078",
+      "name": "billy wilder"
     }, {
-      "number": "1.42D-095",
-      "name": "belvedere",
-      "building": 1,
-      "floor": 4,
-      "cardinal": "east",
-      "elevator": "east",
-      "direction": "right"
+      "id": "1.42D-095",
+      "name": "belvedere"
     }, {
-      "number": "1.43C-047",
-      "name": "charlottenburg",
-      "building": 1,
-      "floor": 4,
-      "cardinal": "south east",
-      "elevator": "east",
-      "direction": "right"
+      "id": "1.43C-047",
+      "name": "charlottenburg"
     }, {
-      "number": "1.42B-053",
-      "name": "hasenheide",
-      "building": 1,
-      "floor": 4,
-      "cardinal": "west",
-      "elevator": "west",
-      "direction": "left"
+      "id": "1.42B-053",
+      "name": "hasenheide"
+    }, {
+      "id": "1.22D-085",
+      "name": "teufelsberg"
+    }, {
+      "id": "1.53C-041",
+      "name": "schoneberg"
+    }, {
+      "id": "1.53C-058",
+      "name": "here leadership team room"
+    }, {
+      "id": "2.G1A-064",
+      "name": "downunder"
     }]
   }
 };
@@ -64,13 +46,14 @@ $('form').submit(function(event) {
   });
   if (found === false) {
     $('.info').text('Room not found').show();
+    $('.directions').text('').show();
   }
   event.preventDefault();
 });
 
 function getInfo(v) {
-  return `${toTitleCase(v.name)} is on the ${getOrdinal(v.floor)} floor in HERE building `
-    + `${v.building}, ${getCardinal(v.cardinal)}.`;
+  var data = parseRoomId(v.id);
+  return `${toTitleCase(v.name)} is in HERE building ${data[0]} on the ${getOrdinal(data[1])} floor.`;
 }
 
 function toTitleCase(s) {
@@ -78,26 +61,47 @@ function toTitleCase(s) {
 }
 
 function getOrdinal(n) {
+  if (n.toLowerCase() == 'g') { return 'ground '; }
   var s = ['th', 'st', 'nd', 'rd'], v = n % 100;
   return n + (s[(v - 20) % 10] || s[v] || s[0]);
 }
 
-function getCardinal(c) {
-  if (wordCount(c) > 1) {
-    return `${c} corner`
-  } else {
-    return c
-  }
-}
-
-function wordCount(s) { 
-  return s.split(' ').length;
-}
-
 function getDirections(v) {
-  if (v.elevator == 'either') {
-    return `Take ${v.elevator} elevator, the room is ${v.direction} them.`
+  
+  var data = parseRoomId(v.id);
+  var cardinal = getCardinal(data[2], data[3]);
+  
+  if (cardinal == 'north') {
+    return `Take either elevator, the room is between them.`
+  } else if (cardinal == 'south') {
+    return `Take either elevator, head ${cardinal}.`
+  } else if (cardinal == 'east') {
+    return `Take the ${cardinal} elevator, exit right, head south.`
+  } else if (cardinal == 'west') {
+    return `Take the ${cardinal} elevator, exit left, head south.`
   } else {
-    return `From the ${v.elevator} elevator, go ${v.direction}.`
+    return '';
   }
+}
+
+function parseRoomId(id) {
+  var building = id[0];
+  var s = id.split('.')[1].split('-')[0];
+  var floor = s[0];
+  var x = s[2];
+  var y = s[1];
+
+  return [building, floor, x, y]
+}
+
+function getCardinal(x, y) {
+  if (x == 'B') { x = 'west'; }
+  if (x == 'C') { x = ''; }
+  if (x == 'D') { x = 'east'; }
+
+  if (y == '1') { y = 'north'; }
+  if (y == '2') { y = ''; }
+  if (y == '3') { y = 'south'; }
+
+  return `${y}${x}`
 }
