@@ -45,7 +45,7 @@ $('form').submit(function(event) {
     }
   });
   if (found === false) {
-    $('.info').text('Room not found').show();
+    $('.info').text('No idea!').show();
     $('.directions').text('').show();
   }
   event.preventDefault();

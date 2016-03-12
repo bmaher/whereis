@@ -100,6 +100,17 @@ body {
     text-align: center;
 }
 
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    max-height: 100%;
+    padding: 100px 20px 70px;
+}
+
+input {
+   text-align: center;
+}
+
 span {
     display: block;
     margin: 20px;
