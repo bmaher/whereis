@@ -1,15 +1,45 @@
 var json = {
   "rooms": {
     "room": [{
+      "number": "1.41C-023",
+      "name": "marlene dietrich",
+      "building": 1,
+      "floor": 4,
+      "elevator": "east or west",
+      "direction": "right or left",
+    }, {
+      "number": "1.41C-025",
+      "name": "harald juhnke",
+      "building": 1,
+      "floor": 4,
+      "elevator": "east or west",
+      "direction": "right or left"
+    }, {
+      "number": "1.41C-078",
+      "name": "billy wilder",
+      "building": 1,
+      "floor": 4,
+      "elevator": "east",
+      "direction": "left"
+    }, {
+      "number": "1.42D-095",
       "name": "belvedere",
       "building": 1,
-      "floor": 6,
+      "floor": 4,
       "elevator": "east",
       "direction": "right"
     }, {
-      "name": "atlas",
+      "number": "1.43C-047",
+      "name": "charlottenburg",
       "building": 1,
-      "floor": 6,
+      "floor": 4,
+      "elevator": "east",
+      "direction": "right"
+    }, {
+      "number": "1.42B-053",
+      "name": "hasenheide",
+      "building": 1,
+      "floor": 4,
       "elevator": "west",
       "direction": "left"
     }]
@@ -21,8 +51,8 @@ function buildString(v) {
     + `${v.building}. From the ${v.elevator} elevator go ${v.direction}.`;
 }
 
-function titleCase(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+function titleCase(s) {
+  return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
 function getOrdinal(n) {
