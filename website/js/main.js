@@ -58,7 +58,7 @@ $('form').submit(function(event) {
 
 function getInfo(v) {
   var data = parseRoomId(v.id);
-  return `${toTitleCase(v.name)} is in HERE building ${data[0]} on the ${getOrdinal(data[1])} floor.`;
+  return `${toTitleCase(v.name)} is in building ${data[0]} on the ${getOrdinal(data[1])} floor.`;
 }
 
 function toTitleCase(s) {
