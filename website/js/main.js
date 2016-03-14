@@ -14,13 +14,13 @@ var json = {
 };
 
 $( document ).ready(function() {
-    var names = json.rooms.room.map( function(item) { return toTitleCase(item.name); } );
+    var names = json.rooms.map( function(item) { return toTitleCase(item.name); } );
     $('input').autocomplete({ source: names });
 });
 
 $('form').submit(function(event) {
     var found = false;
-    $.each(json.rooms.room, function(i, v) {
+    $.each(json.rooms, function(i, v) {
         if (v.name.toLowerCase() == $('input').val().toLowerCase()) {
             $('.info').text(getInfo(v)).show();
             $('.directions').text(getDirections(v)).show();
